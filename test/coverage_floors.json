@@ -1,0 +1,20 @@
+{
+  "lib/act_observability.rb": {
+    "line_percent": 100,
+    "branch_percent": 100,
+    "lines": [
+      3,
+      6
+    ],
+    "branches": {}
+  },
+  "lib/act_observability/version.rb": {
+    "line_percent": 100,
+    "branch_percent": 100,
+    "lines": [
+      4,
+      5
+    ],
+    "branches": {}
+  }
+}
