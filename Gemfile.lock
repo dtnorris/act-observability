@@ -1,0 +1,31 @@
+PATH
+  remote: .
+  specs:
+    act-observability (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    fiddle (1.1.8)
+    minitest (5.27.0)
+    rake (13.4.2)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  act-observability!
+  fiddle (= 1.1.8)
+  minitest (= 5.27.0)
+  rake (= 13.4.2)
+
+CHECKSUMS
+  act-observability (0.1.0)
+  bundler (4.0.17) sha256=214e21431b5665dd2f99df8a5511c6b151d7a72e8015c8b38f8b775b61cbb6c1
+  fiddle (1.1.8)
+  minitest (5.27.0)
+  rake (13.4.2)
+
+BUNDLED WITH
+  4.0.17
