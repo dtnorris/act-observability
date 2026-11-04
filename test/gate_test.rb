@@ -135,6 +135,11 @@ class GateTest < Minitest::Test
         assert_raises(StandardError) { BootstrapGate.verify!(copy, request, floors) }
       end
       assert BootstrapGate.verify!(record, request, floors)
+      floors.fetch("lib/fixture.rb")["covered_lines"] = [2]
+      error = assert_raises(RuntimeError) { BootstrapGate.verify!(record, request, floors) }
+      assert_includes error.message, "lost mapped line coverage"
+      floors.fetch("lib/fixture.rb")["covered_lines"] = [1]
+      assert BootstrapGate.verify!(record, request, floors)
     end
   end
 
@@ -147,6 +152,10 @@ class GateTest < Minitest::Test
       assert_includes error.message, "branch coverage below floor"
       record["coverage"]["lib/fixture.rb"]["branches"]["decision"]["no"] = 1
       assert BootstrapGate.verify!(record, request, floors)
+      floors.fetch("lib/fixture.rb")["covered_branches"] = { "decision" => ["no"] }
+      record["coverage"]["lib/fixture.rb"]["branches"]["decision"]["no"] = 0
+      error = assert_raises(RuntimeError) { BootstrapGate.verify!(record, request, floors) }
+      assert_includes error.message, "lost mapped branch coverage"
     end
   end
 
