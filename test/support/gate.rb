@@ -109,6 +109,9 @@ module BootstrapGate
       nodes = lines.each_index.select { |index| !lines[index].nil? }.map { |index| index + 1 }
       branch_nodes = data.fetch("branches").transform_values { |arms| arms.keys.sort }
       raise "unmeasured coverage nodes: #{path}" unless !nodes.empty? && nodes == floor.fetch("lines") && branch_nodes == floor.fetch("branches")
+      raise "lost mapped line coverage: #{path}" unless floor.fetch("covered_lines", []).all? { |line| nodes.include?(line) && lines.fetch(line - 1).positive? }
+      raise "lost mapped branch coverage: #{path}" unless floor.fetch("covered_branches", {}).all? { |origin, arms|
+        arms.all? { |arm| data.fetch("branches").fetch(origin).fetch(arm).positive? } }
       raise "line coverage below floor: #{path}" if 100.0 * lines.compact.count(&:positive?) / nodes.size < floor.fetch("line_percent")
       raise "branch coverage below floor: #{path}" if !branches.empty? && 100.0 * branches.count(&:positive?) / branches.size < floor.fetch("branch_percent")
     end

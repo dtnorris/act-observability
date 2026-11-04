@@ -1,9 +1,9 @@
 # act-observability
 
 An independently installable Ruby package with the `ActObservability` namespace.
-This foundation supplies identity and version only; observability behavior and ACT
-integration belong to later milestones in the authoritative
-[breakup plan](https://github.com/dtnorris/agent-coding-tool-data/blob/4d297dcc6bd8574c2c103125abf453d8673aafec/plans/ab/AB-PLN-01A/plan.md).
+The package owns bounded binary `GateCapture`; main ACT owns command execution,
+checkpoint policy and receipt interpretation. This is the M2 seed in the authoritative
+[breakup plan](https://github.com/dtnorris/agent-coding-tool-data/blob/007deb1093e58c2848cfa99b3477965351736fb3/plans/ab/AB-PLN-01A/plan.md).
 
 ```ruby
 require "act_observability"
@@ -13,7 +13,9 @@ ActObservability::VERSION # => "0.1.0"
 The gem has no runtime gem dependencies, imports no other ACT repository, and
 does not read `.env`. Main ACT retains command and mode-selection authority.
 Publication, exact dependency refs, installed-ACT adoption and successor
-preparation require operator review. No split-mode composition is declared here.
+preparation require operator review. AB-OB-01B qualifies only this package;
+AB-OB-01C owns main adoption against the accepted operator-published package
+revision and digest. No accepted split composition is declared here.
 
 Install development dependencies with `bundle install` (separate from test
 timing). Both `rake` and `bundle exec rake` run the **same entire default suite**,
@@ -28,6 +30,21 @@ hits never carry across runs. Each test file must define at least one case.
 100% line/branch floors; files without branches report an empty branch inventory.
 This measures the import/version contract, not domain behavior. Migrated sources
 require their original measured floors and covered-node mapping before adoption.
+
+`GateCapture.new(directory, token, out:, err:).run` yields native pipe
+redirections and returns the caller's value or raises its original exception.
+`result` reports per-stream observed/retained byte counts, SHA-256, truncation,
+durable-file failure and console delivery independently. Private exclusive files,
+flush/fsync and bounded inherited-pipe cleanup retain the main seed's contract.
+The package supplies no command authorization, task interpretation, receipts,
+sharing, tunnel or recovery policy. Main's legacy default, compatibility adapter
+and continuous public gate journey remain AB-OB-01C responsibilities.
+
+`test/gate_capture_reference.json` binds the original main source and guarded
+focused measurement. `test/coverage_floors.json` preserves every mapped covered
+node and ratchets its numeric floors using the expanded package cases. The only
+remaining uncovered arm is the defensive already-closed reader check: the
+capture owns that reader and closes it only in its drain ensure block.
 
 The initial timing contract targets David's Darwin arm64 Mac with Ruby 4.0.6
 and this lockfile. The private watchdog supervises test startup through cleanup,
